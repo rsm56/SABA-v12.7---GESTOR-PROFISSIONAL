@@ -2,201 +2,197 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABA v12.7 - GESTOR ELITE PROFISSIONAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SABA v13.3 - INVERSÃO INTELIGENTE</title>
     <style>
-        :root { --blue: #1a73e8; --red: #d93025; --green: #188038; --gold: #fbbc04; --dark: #202124; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f3f4; margin: 0; padding: 15px; color: var(--dark); }
-        .container { max-width: 1100px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 8px solid var(--blue); }
-        
-        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #dadce0; flex-wrap: wrap; }
-        .btn-tool { cursor: pointer; border: none; border-radius: 6px; padding: 8px 15px; font-weight: bold; font-size: 12px; transition: 0.2s; background: #eee; }
-        .btn-tool:hover { background: #dadce0; }
-        .btn-danger { background: #fce8e6; color: var(--red); }
-        
-        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { border: 1px solid #dadce0; padding: 15px; border-radius: 8px; background: #fff; margin-bottom: 15px; }
-        h3 { color: var(--blue); margin-top: 0; font-size: 16px; border-bottom: 2px solid #eee; padding-bottom: 5px; text-transform: uppercase; }
-        
-        textarea { width: 100%; height: 100px; border: 2px solid #dfe1e5; border-radius: 6px; padding: 10px; font-size: 14px; resize: none; box-sizing: border-box; font-family: monospace; }
-        .horarios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .h-box { background: #f8f9fa; border: 1px solid #dadce0; padding: 8px; border-radius: 6px; text-align: center; }
-        .h-box span { font-size: 10px; font-weight: bold; color: #5f6368; display: block; }
-        input { width: 100%; padding: 8px; border: 1px solid #bdc1c6; border-radius: 4px; text-align: center; font-weight: bold; font-size: 18px; box-sizing: border-box; }
-        
-        .btn-execute { background: var(--blue); color: white; width: 100%; padding: 18px; font-size: 18px; margin: 15px 0; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        
-        .next-panel { background: #e8f5e9; border: 2px solid var(--green); padding: 15px; border-radius: 8px; margin-top: 20px; display: none; }
-        .ternos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-        .terno-item { background: white; border: 1px solid var(--green); padding: 10px; border-radius: 6px; text-align: center; }
-        .terno-item b { font-size: 18px; display: block; }
-
-        .mestre-card { background: #fdfdfd; border: 2px solid #dadce0; padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center; }
-        .mestre-inputs { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
-        .g-box { border: 2px solid #dadce0; padding: 10px; border-radius: 8px; min-width: 80px; background: white; }
-        .g-val { font-size: 28px; color: var(--red); font-weight: bold; }
+        :root { --blue: #1a73e8; --red: #d93025; --green: #188038; --dark: #202124; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #f1f3f4; margin: 0; padding: 10px; color: var(--dark); }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 6px solid var(--blue); }
+        .toolbar { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .btn-tool { cursor: pointer; border: 1px solid #dadce0; border-radius: 8px; padding: 10px; font-weight: bold; font-size: 11px; background: white; flex: 1; min-width: 90px; }
+        .btn-danger { color: var(--red); border-color: #f8d7da; }
+        .grid { display: flex; flex-direction: column; gap: 15px; }
+        .card { border: 1px solid #dadce0; padding: 12px; border-radius: 8px; background: #fff; }
+        h3 { color: var(--blue); margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        textarea { width: 100%; height: 90px; border: 1px solid #bdc1c6; border-radius: 6px; padding: 8px; font-size: 14px; box-sizing: border-box; font-family: monospace; resize: none; }
+        .h-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .h-box { background: #f8f9fa; padding: 5px; border-radius: 4px; text-align: center; border: 1px solid #eee; }
+        .h-box span { font-size: 9px; font-weight: bold; color: #5f6368; display: block; }
+        input { width: 100%; padding: 10px; border: 1px solid #bdc1c6; border-radius: 6px; text-align: center; font-weight: bold; font-size: 18px; box-sizing: border-box; }
+        .btn-exec { background: var(--blue); color: white; width: 100%; padding: 16px; font-size: 16px; margin: 15px 0; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #1557b0; }
+        .panel { background: #e8f5e9; border: 2px solid var(--green); padding: 12px; border-radius: 8px; margin-top: 15px; display: none; }
+        .t-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+        .t-item { background: white; border: 1px solid var(--green); padding: 12px; border-radius: 6px; text-align: center; font-size: 19px; font-weight: bold; color: #333; }
+        .m-card { background: #f8f9fa; border: 1px solid #dadce0; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; }
+        .m-flex { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .g-row { display: flex; justify-content: center; gap: 10px; }
+        .g-box { border: 1px solid #dadce0; padding: 8px; border-radius: 6px; background: white; min-width: 75px; }
+        .g-num { font-size: 24px; color: var(--red); font-weight: bold; }
     </style>
 </head>
-<body onload="carregar()">
+<body onload="carregarDB()">
 
 <div class="container">
     <div class="toolbar">
-        <button class="btn-tool" onclick="exportarJSON()">💾 BACKUP</button>
-        <button class="btn-tool" onclick="document.getElementById('fileIn').click()">📂 RESTAURAR</button>
-        <input type="file" id="fileIn" style="display:none" onchange="importarJSON(event)">
-        <button class="btn-tool" onclick="verLancados()">📋 VER LANÇADOS</button>
-        <button class="btn-tool btn-danger" onclick="limparCiclo()">🧨 LIMPAR CICLO</button>
+        <button class="btn-tool" onclick="fazerBackup()">💾 BACKUP</button>
+        <button class="btn-tool" onclick="document.getElementById('inputArquivo').click()">📂 RESTAURAR</button>
+        <input type="file" id="inputArquivo" style="display:none" onchange="restaurarBackup(event)">
+        <button class="btn-tool" onclick="exibirLancados()">📋 LANÇADOS</button>
+        <button class="btn-tool btn-danger" onclick="resetarSistema()">🧨 LIMPAR</button>
     </div>
 
-    <h2 style="text-align:center; color:var(--blue);">SABA v12.7 - GESTOR PROFISSIONAL</h2>
-
-    <div class="main-grid">
-        <div>
-            <div class="card">
-                <h3>📋 CICLO / ATRASADOS</h3>
-                <textarea id="lista_atrasados" placeholder="Cole os grupos atrasados aqui..."></textarea>
-            </div>
-            <div class="card">
-                <h3>📊 VICIADAS (BICHO CERTO)</h3>
-                <textarea id="viciadas_input" placeholder="Cole o texto bruto do site aqui..."></textarea>
-            </div>
+    <div class="grid">
+        <div class="card">
+            <h3>📋 CICLO & DEZENAS VICIADAS</h3>
+            <textarea id="txtAtrasados" placeholder="Grupos atrasados..."></textarea>
+            <textarea id="txtViciadas" style="margin-top:8px; border-color:var(--blue)" placeholder="Dezenas viciadas..."></textarea>
         </div>
-
-        <div>
-            <div class="card">
-                <h3>🕒 RESULTADOS DO DIA</h3>
-                <div class="horarios-grid">
-                    <div class="h-box"><span>COR</span><input type="text" id="rCOR"></div>
-                    <div class="h-box"><span>PPT</span><input type="text" id="rPPT"></div>
-                    <div class="h-box"><span>PTM</span><input type="text" id="rPTM"></div>
-                    <div class="h-box"><span>PT</span><input type="text" id="rPT"></div>
-                    <div class="h-box"><span>PTV</span><input type="text" id="rPTV"></div>
-                    <div class="h-box"><span>PTN</span><input type="text" id="rPTN"></div>
-                </div>
+        <div class="card">
+            <h3>🕒 RESULTADOS & EXCLUSÃO</h3>
+            <div class="h-grid">
+                <div class="h-box"><span>COR</span><input type="number" id="h1"></div>
+                <div class="h-box"><span>PPT</span><input type="number" id="h2"></div>
+                <div class="h-box"><span>PTM</span><input type="number" id="h3"></div>
+                <div class="h-box"><span>PT</span><input type="number" id="h4"></div>
+                <div class="h-box"><span>PTV</span><input type="number" id="h5"></div>
+                <div class="h-box"><span>PTN</span><input type="number" id="h6"></div>
             </div>
-            <div class="card">
-                <h3>🚫 SAÍRAM HOJE (EXCLUSÃO)</h3>
-                <textarea id="dezenas_hoje" placeholder="Dezenas para excluir dos ternos..."></textarea>
-            </div>
+            <input type="text" id="txtSaidas" style="margin-top:10px; font-size:14px;" placeholder="Dezenas que já saíram hoje">
         </div>
     </div>
 
-    <button class="btn-execute" onclick="processarTudo()">PROCESSAR CRUZAMENTO E CICLO</button>
+    <button class="btn-exec" onclick="processarGeral()">ATUALIZAR & INVERTER DUPLICADOS</button>
 
-    <div id="painel_seguinte" class="next-panel">
-        <h3>🎯 PALPITES PARA AMANHÃ (4 TERNOS)</h3>
-        <div id="corpo_ternos" class="ternos-grid"></div>
+    <div id="painelPalpite" class="panel">
+        <h3 style="color:var(--green); border-bottom: 2px solid var(--green);">🎯 PALPITES (SISTEMA DE INVERSÃO)</h3>
+        <div id="gridPalpites" class="t-grid"></div>
     </div>
 
-    <div class="mestre-card">
-        <h3>CÁLCULO MESTRE DINÂMICO</h3>
-        <div class="mestre-inputs">
-            <input type="number" id="mestre_val" style="width:140px;" placeholder="Valor A">
-            <span style="font-size:24px; font-weight:bold;">X</span>
-            <input type="number" id="mestre_fator" style="width:140px;" placeholder="Valor B (Ex: 2026)">
-            <button onclick="calcularMestre()" style="padding:10px 20px; cursor:pointer; background:var(--dark); color:white; border-radius:6px; border:none; font-weight:bold;">=</button>
+    <div class="m-card">
+        <h3>CÁLCULO MESTRE</h3>
+        <div class="m-flex">
+            <input type="number" id="valA" style="width:100px"> <b>X</b> <input type="number" id="valB" style="width:100px">
+            <button onclick="executarCalcMestre()" style="padding:10px; background:var(--dark); color:white; border:none; border-radius:6px;">=</button>
         </div>
-        
-        <div id="area_mestre" style="display:none;">
-            <div id="mestre_res" style="font-size:45px; font-weight:bold; color:var(--blue); margin-bottom:15px;"></div>
-            <div style="display:flex; justify-content:center; gap:15px;">
-                <div class="g-box"><small>G1 (INI)</small><div id="g1" class="g-val"></div></div>
-                <div class="g-box"><small>G2 (MID)</small><div id="g2" class="g-val"></div></div>
-                <div class="g-box" style="background:#fffde7; border-color:var(--gold);"><small>G3 (FIM)</small><div id="g3" class="g-val"></div></div>
+        <div id="resMestre" style="display:none">
+            <div id="numMestreTotal" style="font-size:30px; font-weight:bold; color:var(--blue); margin-bottom:10px"></div>
+            <div class="g-row">
+                <div class="g-box"><small>G1</small><div id="gm1" class="g-num"></div></div>
+                <div class="g-box"><small>G2</small><div id="gm2" class="g-num"></div></div>
+                <div class="g-box" style="background:#fffde7"><small>G3</small><div id="gm3" class="g-num"></div></div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let cicloGlobal = [];
+    let cicloAtivo = [];
+    const STORAGE_KEY = "SABA_V13_3_DB";
 
-    function carregar() {
-        const salvo = localStorage.getItem('saba_v12_7');
-        if(salvo) cicloGlobal = JSON.parse(salvo);
+    function carregarDB() {
+        const salvo = localStorage.getItem(STORAGE_KEY);
+        if(salvo) cicloAtivo = JSON.parse(salvo);
     }
 
-    function extrairNumeros(txt) { return (txt.match(/\d+/g) || []).map(Number); }
-
-    function extrairViciadas(txt) {
-        const regex = /(\d{1,2})-/g;
-        let d = []; let m;
-        while ((m = regex.exec(txt)) !== null) d.push(parseInt(m[1]));
-        return [...new Set(d)];
+    function getGrupo(d) {
+        let n = parseInt(d);
+        if (n === 0 || n === 100) return 25;
+        return Math.ceil(n/4);
     }
 
-    function processarTudo() {
-        const elAtrasados = document.getElementById('lista_atrasados');
-        const elViciadas = document.getElementById('viciadas_input');
-        const elHoje = document.getElementById('dezenas_hoje');
+    // Função que inverte a dezena dentro do mesmo grupo
+    function inverterDezena(dezena) {
+        let g = getGrupo(dezena);
+        let dezenasDoGrupo = [(g*4)-3, (g*4)-2, (g*4)-1, g*4];
+        if (g === 25) dezenasDoGrupo = [97, 98, 99, 0];
         
-        // 1. Ciclo
-        let novos = extrairNumeros(elAtrasados.value).filter(g => g <= 25);
-        if(novos.length > 0) cicloGlobal = [...new Set(novos)];
-
-        // 2. Resultados nos campos
-        ['rCOR','rPPT','rPTM','rPT','rPTV','rPTN'].forEach(id => {
-            let res = extrairNumeros(document.getElementById(id).value).filter(g => g <= 25);
-            res.forEach(n => { cicloGlobal = cicloGlobal.filter(x => x !== n); cicloGlobal.push(n); });
-            document.getElementById(id).value = "";
-        });
-
-        // 3. Filtro Ternos
-        const viciadas = extrairViciadas(elViciadas.value);
-        const sairam = extrairNumeros(elHoje.value);
-        let filtradas = viciadas.filter(d => !sairam.includes(d));
-
-        gerarTernos(filtradas);
-
-        // Salvar e Limpar
-        localStorage.setItem('saba_v12_7', JSON.stringify(cicloGlobal));
-        elAtrasados.value = ""; 
-        elViciadas.value = ""; 
-        elHoje.value = "";
-        alert("Processamento concluído!");
+        // Retorna uma dezena diferente da original dentro do grupo
+        return dezenasDoGrupo.find(d => d != dezena);
     }
 
-    function gerarTernos(dezenas) {
-        let gruposTopo = cicloGlobal.slice(0, 10);
-        let lista = dezenas.filter(d => gruposTopo.includes(Math.ceil(d/4) || 25));
-        if(lista.length < 12) lista = [...new Set([...lista, ...dezenas])].slice(0, 12);
+    function processarGeral() {
+        let novos = (document.getElementById('txtAtrasados').value.match(/\d+/g) || []).map(Number).filter(g => g <= 25);
+        if(novos.length > 0) cicloAtivo = [...new Set(novos)];
 
-        let html = "";
-        for(let i=0; i<4; i++) {
-            let t = lista.slice(i*3, (i*3)+3);
-            if(t.length === 3) html += `<div class="terno-item"><small>TERNO ${i+1}</small><b>${t.map(n=>n.toString().padStart(2,'0')).join(' - ')}</b></div>`;
+        for(let i=1; i<=6; i++) {
+            let el = document.getElementById('h'+i);
+            let val = parseInt(el.value);
+            if(!isNaN(val)) {
+                cicloAtivo = cicloAtivo.filter(x => x !== val);
+                cicloAtivo.push(val);
+            }
+            el.value = "";
         }
-        document.getElementById('painel_seguinte').style.display = 'block';
-        document.getElementById('corpo_ternos').innerHTML = html || "<p>Dezenas insuficientes para ternos.</p>";
-    }
 
-    function conv(d) { let n = parseInt(d); return n === 0 ? 25 : Math.ceil(n/4); }
-
-    function calcularMestre() {
-        const a = document.getElementById('mestre_val').value;
-        const b = document.getElementById('mestre_fator').value;
-        if(!a || !b) return alert("Preencha os dois campos do cálculo.");
+        const viciadas = [...new Set((document.getElementById('txtViciadas').value.match(/\d+/g) || []).map(Number))];
+        const jaSairam = (document.getElementById('txtSaidas').value.match(/\d+/g) || []).map(Number);
         
-        const res = (parseInt(a) * parseInt(b)).toString().padStart(6, '0');
-        document.getElementById('area_mestre').style.display = 'block';
-        document.getElementById('mestre_res').innerText = res;
-        document.getElementById('g1').innerText = conv(res.substring(0,2)).toString().padStart(2,'0');
-        document.getElementById('g2').innerText = conv(res.substring(2,4)).toString().padStart(2,'0');
-        document.getElementById('g3').innerText = conv(res.substring(4,6)).toString().padStart(2,'0');
+        let pool = viciadas.filter(d => !jaSairam.includes(d));
+        let topo = cicloAtivo.slice(0, 10);
+        let listaTrabalho = [...new Set([...pool.filter(d => topo.includes(getGrupo(d))), ...pool])];
+
+        let htmlFinal = "";
+        for(let i=0; i<4; i++) {
+            if(listaTrabalho.length >= 3) {
+                let terno = listaTrabalho.splice(0, 3);
+                let gruposNoJogo = [];
+                
+                // Correção de colisão por inversão
+                terno = terno.map(dez => {
+                    let g = getGrupo(dez);
+                    if(gruposNoJogo.includes(g)) {
+                        let novaDez = inverterDezena(dez);
+                        return novaDez;
+                    }
+                    gruposNoJogo.push(g);
+                    return dez;
+                });
+
+                htmlFinal += `<div class="t-item">JOGO ${i+1}: &nbsp; ${terno.map(n=>n.toString().padStart(2,'0')).join(' - ')}</div>`;
+            }
+        }
+
+        document.getElementById('painelPalpite').style.display = 'block';
+        document.getElementById('gridPalpites').innerHTML = htmlFinal || "Dados insuficientes.";
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cicloAtivo));
+        document.getElementById('txtAtrasados').value = ""; 
+        document.getElementById('txtViciadas').value = ""; 
+        document.getElementById('txtSaidas').value = "";
+        alert("Jogos gerados com sucesso!");
     }
 
-    // Funções da Toolbar
-    function exportarJSON() {
-        const b = new Blob([JSON.stringify(cicloGlobal)], {type: "application/json"});
-        const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "saba_backup.json"; a.click();
+    function executarCalcMestre() {
+        const a = document.getElementById('valA').value;
+        const b = document.getElementById('valB').value;
+        if(!a || !b) return;
+        const total = (BigInt(a) * BigInt(b)).toString().padStart(6, '0');
+        document.getElementById('resMestre').style.display = 'block';
+        document.getElementById('numMestreTotal').innerText = total;
+        let s = total.slice(-6);
+        document.getElementById('gm1').innerText = getGrupo(s.substring(0,2)).toString().padStart(2,'0');
+        document.getElementById('gm2').innerText = getGrupo(s.substring(2,4)).toString().padStart(2,'0');
+        document.getElementById('gm3').innerText = getGrupo(s.substring(4,6)).toString().padStart(2,'0');
     }
-    function importarJSON(e) {
-        const r = new FileReader();
-        r.onload = (ev) => { cicloGlobal = JSON.parse(ev.target.result); localStorage.setItem('saba_v12_7', JSON.stringify(cicloGlobal)); alert("Dados Restaurados!"); };
-        r.readAsText(e.target.files[0]);
+
+    function fazerBackup() {
+        const blob = new Blob([JSON.stringify(cicloAtivo)], {type: "application/json"});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob); link.download = `SABA_BKP.json`; link.click();
     }
-    function verLancados() { alert("Grupos no Ciclo Atual:\n" + cicloGlobal.join(", ")); }
-    function limparCiclo() { if(confirm("Deseja zerar o ciclo atual?")) { cicloGlobal = []; localStorage.removeItem('saba_v12_7'); location.reload(); } }
+
+    function restaurarBackup(e) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            cicloAtivo = JSON.parse(ev.target.result);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(cicloAtivo));
+            location.reload();
+        };
+        reader.readAsText(e.target.files[0]);
+    }
+
+    function exibirLancados() { alert("Ciclo: " + cicloAtivo.join(" - ")); }
+    function resetarSistema() { if(confirm("Zerar?")) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
 </script>
 </body>
 </html>
