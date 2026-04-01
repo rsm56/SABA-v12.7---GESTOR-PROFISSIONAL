@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SABA v13.3 - INVERSÃO INTELIGENTE</title>
+    <title>SABA v13.4 - FINAL</title>
     <style>
         :root { --blue: #1a73e8; --red: #d93025; --green: #188038; --dark: #202124; }
         body { font-family: -apple-system, system-ui, sans-serif; background: #f1f3f4; margin: 0; padding: 10px; color: var(--dark); }
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <button class="btn-exec" onclick="processarGeral()">ATUALIZAR & INVERTER DUPLICADOS</button>
+    <button class="btn-exec" onclick="processarGeral()">ATUALIZAR & GERAR JOGOS</button>
 
     <div id="painelPalpite" class="panel">
         <h3 style="color:var(--green); border-bottom: 2px solid var(--green);">🎯 PALPITES (SISTEMA DE INVERSÃO)</h3>
@@ -87,7 +87,7 @@
 
 <script>
     let cicloAtivo = [];
-    const STORAGE_KEY = "SABA_V13_3_DB";
+    const STORAGE_KEY = "SABA_V13_4_DB";
 
     function carregarDB() {
         const salvo = localStorage.getItem(STORAGE_KEY);
@@ -100,13 +100,10 @@
         return Math.ceil(n/4);
     }
 
-    // Função que inverte a dezena dentro do mesmo grupo
     function inverterDezena(dezena) {
         let g = getGrupo(dezena);
         let dezenasDoGrupo = [(g*4)-3, (g*4)-2, (g*4)-1, g*4];
         if (g === 25) dezenasDoGrupo = [97, 98, 99, 0];
-        
-        // Retorna uma dezena diferente da original dentro do grupo
         return dezenasDoGrupo.find(d => d != dezena);
     }
 
@@ -137,12 +134,10 @@
                 let terno = listaTrabalho.splice(0, 3);
                 let gruposNoJogo = [];
                 
-                // Correção de colisão por inversão
                 terno = terno.map(dez => {
                     let g = getGrupo(dez);
                     if(gruposNoJogo.includes(g)) {
-                        let novaDez = inverterDezena(dez);
-                        return novaDez;
+                        return inverterDezena(dez);
                     }
                     gruposNoJogo.push(g);
                     return dez;
@@ -153,13 +148,13 @@
         }
 
         document.getElementById('painelPalpite').style.display = 'block';
-        document.getElementById('gridPalpites').innerHTML = htmlFinal || "Dados insuficientes.";
+        document.getElementById('gridPalpites').innerHTML = htmlFinal || "Dezenas insuficientes.";
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cicloAtivo));
         document.getElementById('txtAtrasados').value = ""; 
         document.getElementById('txtViciadas').value = ""; 
         document.getElementById('txtSaidas').value = "";
-        alert("Jogos gerados com sucesso!");
+        alert("Sistema v13.4 Atualizado!");
     }
 
     function executarCalcMestre() {
