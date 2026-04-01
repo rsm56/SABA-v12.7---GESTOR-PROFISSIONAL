@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SABA v13.6 - ESPELHO</title>
+    <title>SABA v13.7 - GESTOR TÉCNICO</title>
     <style>
         :root { --blue: #1a73e8; --red: #d93025; --green: #188038; --dark: #202124; }
         body { font-family: -apple-system, sans-serif; background: #f1f3f4; margin: 0; padding: 10px; }
         .container { max-width: 1000px; margin: auto; background: white; padding: 15px; border-radius: 12px; border-top: 6px solid var(--blue); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        
         .toolbar { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .btn-tool { cursor: pointer; border: 1px solid #dadce0; border-radius: 8px; padding: 10px; font-weight: bold; font-size: 11px; background: white; flex: 1; }
+        .btn-tool { cursor: pointer; border: 1px solid #dadce0; border-radius: 8px; padding: 10px; font-weight: bold; font-size: 11px; background: white; flex: 1; min-width: 80px; }
+        .btn-danger { color: var(--red); border-color: #f8d7da; }
+        
         .grid { display: flex; flex-direction: column; gap: 12px; }
         .card { border: 1px solid #dadce0; padding: 12px; border-radius: 8px; }
         h3 { color: var(--blue); margin: 0 0 8px 0; font-size: 13px; text-transform: uppercase; border-bottom: 1px solid #eee; }
+        
         textarea { width: 100%; height: 80px; border: 1px solid #bdc1c6; border-radius: 6px; padding: 8px; font-size: 14px; box-sizing: border-box; resize: none; font-family: monospace; }
         .h-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
         .h-box { background: #f8f9fa; padding: 4px; border-radius: 4px; text-align: center; border: 1px solid #eee; }
         input { width: 100%; padding: 8px; border: 1px solid #bdc1c6; border-radius: 6px; text-align: center; font-weight: bold; font-size: 16px; box-sizing: border-box; }
-        .btn-exec { background: var(--blue); color: white; width: 100%; padding: 16px; font-size: 16px; margin: 15px 0; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        .btn-exec { background: var(--blue); color: white; width: 100%; padding: 16px; font-size: 16px; margin: 15px 0; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #1557b0; }
+        .btn-exec:active { transform: translateY(2px); box-shadow: 0 2px 0 #1557b0; }
+        
         .panel { background: #e8f5e9; border: 2px solid var(--green); padding: 12px; border-radius: 8px; display: none; }
         .t-item { background: white; border: 1px solid var(--green); padding: 12px; border-radius: 6px; text-align: center; font-size: 19px; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
+        
         .m-card { background: #f8f9fa; border: 1px solid #dadce0; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center; }
     </style>
 </head>
@@ -27,16 +35,18 @@
 
 <div class="container">
     <div class="toolbar">
+        <button class="btn-tool" onclick="fazerBackup()">💾 BACKUP</button>
+        <button class="btn-tool" onclick="document.getElementById('inArq').click()">📂 RESTAURAR</button>
+        <input type="file" id="inArq" style="display:none" onchange="restaurarBackup(event)">
         <button class="btn-tool" onclick="exibirLancados()">📋 CICLO</button>
-        <button class="btn-tool" onclick="fazerBackup()">💾 BKP</button>
-        <button class="btn-tool" style="color:var(--red)" onclick="resetarSistema()">🧨 ZERAR</button>
+        <button class="btn-tool btn-danger" onclick="resetarSistema()">🧨 ZERAR</button>
     </div>
 
     <div class="grid">
         <div class="card">
             <h3>📋 CICLO & VICIADAS</h3>
-            <textarea id="txtAt" placeholder="Grupos atrasados..."></textarea>
-            <textarea id="txtVi" style="margin-top:5px; border-color:var(--blue)" placeholder="Dezenas viciadas..."></textarea>
+            <textarea id="txtAt" placeholder="Cole os grupos atrasados aqui..."></textarea>
+            <textarea id="txtVi" style="margin-top:5px; border-color:var(--blue)" placeholder="Cole as dezenas viciadas aqui..."></textarea>
         </div>
         <div class="card">
             <h3>🕒 RESULTADOS & EXCLUSÃO</h3>
@@ -48,11 +58,11 @@
                 <div class="h-box"><span>PTV</span><input type="number" id="h5"></div>
                 <div class="h-box"><span>PTN</span><input type="number" id="h6"></div>
             </div>
-            <input type="text" id="txtEx" style="margin-top:8px;" placeholder="Dezenas que já saíram hoje">
+            <input type="text" id="txtEx" style="margin-top:8px;" placeholder="Dezenas que já saíram hoje (excluir)">
         </div>
     </div>
 
-    <button class="btn-exec" onclick="processarGeral()">GERAR JOGOS COM INVERSÃO</button>
+    <button class="btn-exec" onclick="processarGeral()">GERAR JOGOS COM INVERSÃO (V13.7)</button>
 
     <div id="painelPalpite" class="panel">
         <h3 style="color:var(--green)">🎯 PALPITES AMANHÃ (SISTEMA ESPELHO)</h3>
@@ -62,18 +72,18 @@
     <div class="m-card">
         <h3>CÁLCULO MESTRE</h3>
         <div style="display:flex; justify-content:center; gap:5px; align-items:center;">
-            <input type="number" id="vA" style="width:90px"> <b>X</b> <input type="number" id="vB" style="width:90px">
-            <button onclick="executarCalcMestre()" style="padding:10px; background:var(--dark); color:white; border-radius:6px;">=</button>
+            <input type="number" id="vA" style="width:90px" placeholder="A"> <b>X</b> <input type="number" id="vB" style="width:90px" placeholder="B">
+            <button onclick="executarCalcMestre()" style="padding:10px; background:var(--dark); color:white; border-radius:6px; border:none;">=</button>
         </div>
         <div id="resM" style="display:none; margin-top:10px;">
-            <div id="totM" style="font-size:24px; font-weight:bold;"></div>
+            <div id="totM" style="font-size:24px; font-weight:bold; color:var(--blue)"></div>
         </div>
     </div>
 </div>
 
 <script>
     let ciclo = [];
-    const KEY = "SABA_V13_6_DB";
+    const KEY = "SABA_V13_7_STORAGE";
 
     function carregarDB() {
         const s = localStorage.getItem(KEY);
@@ -86,26 +96,29 @@
         return Math.ceil(n/4);
     }
 
-    // Lógica de Inversão (01 -> 10, 21 -> 12)
+    // Inversão Numérica (ex: 01 -> 10)
     function aplicarEspelho(d) {
         let s = d.toString().padStart(2, '0');
         let inv = s.split('').reverse().join('');
         let n = parseInt(inv);
-        return n > 99 ? Math.abs(n - 50) : n; 
+        // Garante que a dezena invertida seja válida (00-99)
+        return n > 99 ? Math.abs(n - 50) : n;
     }
 
     function processarGeral() {
-        // 1. Ciclo e Resultados
+        // 1. Atualiza Ciclo
         let nAt = (document.getElementById('txtAt').value.match(/\d+/g) || []).map(Number).filter(g => g <= 25);
         if(nAt.length > 0) ciclo = [...new Set(nAt)];
 
+        // 2. Resultados e Limpeza h1-h6
         for(let i=1; i<=6; i++) {
-            let v = parseInt(document.getElementById('h'+i).value);
+            let el = document.getElementById('h'+i);
+            let v = parseInt(el.value);
             if(!isNaN(v)) { ciclo = ciclo.filter(x => x !== v); ciclo.push(v); }
-            document.getElementById('h'+i).value = "";
+            el.value = "";
         }
 
-        // 2. Preparação de Dezenas
+        // 3. Preparação de Dados
         const viciadas = [...new Set((document.getElementById('txtVi').value.match(/\d+/g) || []).map(Number))];
         const jaSairam = (document.getElementById('txtEx').value.match(/\d+/g) || []).map(Number);
         
@@ -125,7 +138,7 @@
                 let dezena = listaTrabalho.shift();
                 let g = getG(dezena);
 
-                // Se a dezena já existe no jogo ou o grupo já existe, INVERTE (Espelho)
+                // Lógica de Inversão se houver repetição de Dezena ou Grupo no mesmo jogo
                 if(jogo.includes(dezena) || gruposNoJogo.includes(g)) {
                     dezena = aplicarEspelho(dezena);
                 }
@@ -140,13 +153,15 @@
         }
 
         document.getElementById('painelPalpite').style.display = 'block';
-        document.getElementById('gridPalpites').innerHTML = html || "Dados insuficientes.";
+        document.getElementById('gridPalpites').innerHTML = html || "Sem dezenas suficientes.";
         
+        // 4. Salvar e Limpar Campos de Texto
         localStorage.setItem(KEY, JSON.stringify(ciclo));
         document.getElementById('txtAt').value = ""; 
         document.getElementById('txtVi').value = ""; 
         document.getElementById('txtEx').value = "";
-        alert("Processado com Sucesso!");
+        
+        alert("Processamento v13.7 concluído!");
     }
 
     function executarCalcMestre() {
@@ -155,15 +170,31 @@
         if(!a || !b) return;
         let res = (BigInt(a) * BigInt(b)).toString();
         document.getElementById('resM').style.display = 'block';
-        document.getElementById('totM').innerText = "RESULTADO: " + res;
+        document.getElementById('totM').innerText = "RES: " + res;
     }
 
-    function exibirLancados() { alert("Ordem Ciclo: " + ciclo.join("-")); }
     function fazerBackup() {
         const b = new Blob([JSON.stringify(ciclo)], {type: "application/json"});
-        const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "SABA_DATA.json"; a.click();
+        const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "SABA_BKP.json"; a.click();
     }
-    function resetarSistema() { if(confirm("Limpar base de dados?")) { localStorage.removeItem(KEY); location.reload(); } }
+
+    function restaurarBackup(e) {
+        const f = e.target.files[0];
+        if(!f) return;
+        const r = new FileReader();
+        r.onload = (ev) => {
+            try {
+                ciclo = JSON.parse(ev.target.result);
+                localStorage.setItem(KEY, JSON.stringify(ciclo));
+                alert("Dados Restaurados!");
+                location.reload();
+            } catch(err) { alert("Arquivo inválido."); }
+        };
+        r.readAsText(f);
+    }
+
+    function exibirLancados() { alert("Ciclo Atual: " + ciclo.join(" - ")); }
+    function resetarSistema() { if(confirm("Deseja apagar todo o histórico?")) { localStorage.removeItem(KEY); location.reload(); } }
 </script>
 </body>
 </html>
